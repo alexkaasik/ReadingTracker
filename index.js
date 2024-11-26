@@ -4,7 +4,7 @@ const swaggerUI = require('swagger-ui-express');
 const yamljs = require('yamljs');
 /* const swaggerDocument = require('./docs/swagger.json'); */
 const swaggerDocument = yamljs.load('./docs/swagger.yaml');
-
+var express = require('express')
 const books = 
 [
     {
@@ -36,6 +36,8 @@ const books =
     }
 ]
 
+app.use(express.json());
+
 app.get('/books', (req, res) => {
     res.send(books);
 })
@@ -47,6 +49,37 @@ app.get('/books/:id', (req, res) => {
     res.send(books[req.params.id-1]);
 })
 
+app.post('/books', (req, res) => {
+    if (
+        !req.body.BookName ||
+        !req.body.Gerne ||
+        !req.body.ReleaseDate || 
+        !req.body.Description || 
+        !req.body.ReviewScore || 
+        !req.body.HowManyPages) 
+        {
+            return res.status(400).send({error: 'One or multiple parameters are missing'});
+        }
+    let book = {
+        BookId: books.length+1, 
+        BookName: req.body.BookName,
+        Gerne: req.body.Gerne,
+        ReleaseDate : req.body.ReleaseDate, 
+        Description: req.body.Description, 
+        ReviewScore: req.body.ReviewScore,
+        HowManyPages: req.body.HowManyPages
+    }
+    books.push(book);
+    res.status(201)
+    .location(`${getBaseUrl(req)}/books/${books.length}`)
+    .send(book);
+})
+
+
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.listen(port, () => {console.log(`Backend api jookseb aadressil: http://localhost:${port}`);});
+
+function getBaseUrl(req) {
+    return req.connection && req.connection.encrypted ? "https" : "http" + `://${req.headers.host}`;
+}
