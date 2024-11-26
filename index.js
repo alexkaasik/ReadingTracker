@@ -1,5 +1,9 @@
 const app = require('express')();
 const port = 8080;
+const swaggerUI = require('swagger-ui-express');
+const yamljs = require('yamljs');
+/* const swaggerDocument = require('./docs/swagger.json'); */
+const swaggerDocument = yamljs.load('./docs/swagger.yaml');
 
 const books = 
 [
@@ -38,10 +42,11 @@ app.get('/books', (req, res) => {
 
 app.get('/books/:id', (req, res) => {
     if(typeof books[req.params.id] === 'undefined') {
-        return res.status(404).send({Error: 'Book was not found'});
+        return res.status(404).send({Error: 'Books not found'});
     }
     res.send(books[req.params.id-1]);
 })
 
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.listen(port, () => {console.log(`Backend api jookseb aadressil: http://localhost:${port}`);});

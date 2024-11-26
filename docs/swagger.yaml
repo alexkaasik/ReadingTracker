@@ -1,0 +1,79 @@
+openapi: 3.0.2
+info:
+    title: TARgv23ReadingTrackerApi
+    version: 1.0.0
+    description: see all da gaem
+paths:
+    /books:
+        get:
+            tags:
+                - books
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                List of books:
+                                    value:
+                                        - "Wither "
+                                        - "Metro 2033"
+                                        - "Comfort Me with Apples"
+                    description: Returns a list of books
+            summary: Get a list of all books
+            description: Returns a list of all books in the api
+    '/books/{id}':
+        get:
+            tags:
+                - books
+            parameters:
+                -
+                    examples:
+                        example id:
+                            value:
+                                - 8
+                    name: id
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                Game with details:
+                                    value:
+                                        BookId: 2, 
+                                        BookName: "The Witcher: the last wish"
+                                        Gerne: "Fantasy"
+                                        ReleaseDate : "1993"
+                                        Description: "Geralt the Witcher is a man who whose magic powers, enchanced by long training and a mystrerious elixir, have made him a brilliant fighter"
+                                        ReviewScore: 4
+                                        HowManyPages: 400
+                    description: Returns details of a game by its id
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                            examples:
+                                Missing game:
+                                    value:
+                                        Error: Game not found
+                    description: Game was not found in array of books
+            operationId: id
+            summary: Get full details of a Game
+            description: Return full details of a given Game based on the id
+components:
+    schemas:
+        error:
+            description: "{\r\n  \"Error\": \"error message\"\r\n}"
+            type: object
