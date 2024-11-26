@@ -1,7 +1,7 @@
 {
   "name": "readingtracker",
   "version": "1.0.0",
-  "description": "",
+  "description": "��#\u0000 \u0000R\u0000e\u0000a\u0000d\u0000i\u0000n\u0000g\u0000T\u0000r\u0000a\u0000c\u0000k\u0000e\u0000r\u0000\r\u0000 \u0000",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.21.1"
+    "express": "^4.21.1",
+    "swagger-ui-express": "^5.0.1",
+    "yamljs": "^0.3.0"
   }
 }
