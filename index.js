@@ -43,6 +43,9 @@ app.get('/books', (req, res) => {
 })
 
 app.get('/books/:id', (req, res) => {
+    if(isNaN(parseInt(req.params.id, 10)) ) {
+        return res.status(400).send({Error: 'bad id'});
+    }
     if(typeof books[req.params.id] === 'undefined') {
         return res.status(404).send({Error: 'Books not found'});
     }
