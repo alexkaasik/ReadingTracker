@@ -10,7 +10,7 @@ const books =
     {
         BookId: 1, 
         BookName: "Metro 2033",
-        Gerne: "Science Fiction, Horror",
+        Gerne: ["Science Fiction", "Fiction", "Horror", "Post Apocalyptic", "Dystopia", "Fantasy", "Russia", "Audiobook", "Apocalyptic", "Russian Literature"],
         ReleaseDate : "2002", 
         Description: "The year is 2033. The world has been reduced to rubble. Humanity is nearly extinct. The half-destroyed cities have become uninhabitable through radiation.", 
         ReviewScore: 4,
@@ -19,7 +19,7 @@ const books =
     {
         BookId: 2, 
         BookName: "The Witcher: the last wish",
-        Gerne: "Fantasy",
+        Gerne: ["Fantasy", "Fiction Short", "Stories", "Audiobook", "High Fantasy", "Adult", "Magic", "Adventure", "Epic Fantasy", "Polish Literature"],
         ReleaseDate : "1993", 
         Description: "Geralt the Witcher is a man who whose magic powers, enchanced by long training and a mystrerious elixir, have made him a brilliant fighter", 
         ReviewScore: 4,
@@ -28,7 +28,7 @@ const books =
     {
         BookId: 3, 
         BookName: "Comfort Me with Apples",
-        Gerne: "Horror",
+        Gerne: ["Horror", "Fantasy", "Fiction", "Novella", "Thriller", "Audiobook", "Mystery", "Adult", "Mystery Thriller", "Retellings"],
         ReleaseDate : "2021", 
         Description: "Sophia was made for him", 
         ReviewScore: 3.58,
@@ -74,7 +74,6 @@ app.post('/books', (req, res) => {
     .location(`${getBaseUrl(req)}/books/${books.length}`)
     .send(book);
 })
-
 
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
