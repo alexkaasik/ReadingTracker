@@ -2,7 +2,7 @@ openapi: 3.0.2
 info:
     title: TARgv23ReadingTrackerApi
     version: 1.0.0
-    description: see all da gaem
+    description: see all da buks
 paths:
     /books:
         get:
@@ -49,29 +49,74 @@ paths:
                                 items:
                                     type: string
                             examples:
-                                Game with details:
+                                Book with details:
                                     value:
                                         BookId: 2, 
                                         BookName: "The Witcher: the last wish"
-                                        Gerne: "Fantasy"
+                                        Gerne: ["Fantasy", "Fiction Short", "Stories", "Audiobook", "High Fantasy", "Adult", "Magic", "Adventure", "Epic Fantasy", "Polish Literature"]
                                         ReleaseDate : "1993"
                                         Description: "Geralt the Witcher is a man who whose magic powers, enchanced by long training and a mystrerious elixir, have made him a brilliant fighter"
                                         ReviewScore: 4
                                         HowManyPages: 400
-                    description: Returns details of a game by its id
+                    description: Returns details of a book by its id
                 '404':
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/error'
                             examples:
-                                Missing game:
+                                Missing book:
                                     value:
-                                        Error: Game not found
-                    description: Game was not found in array of books
+                                        Error: Book not found
+                    description: book was not found in array of books
             operationId: id
-            summary: Get full details of a Game
-            description: Return full details of a given Game based on the id
+            summary: Get full details of a Books
+            description: Return full details of a given Book based on the id
+    /book:
+        post:
+            tags:
+                - books
+
+            responses:
+                '201':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                Book with details:
+                                    value:
+                                        BookId: 5
+                                        BookName: "The Witcher: the last wish"
+                                        Gerne: ["Fantasy", "Fiction Short", "Stories", "Audiobook", "High Fantasy", "Adult", "Magic", "Adventure", "Epic Fantasy", "Polish Literature"]
+                                        ReleaseDate : "1993"
+                                        Description: "Geralt the Witcher is a man who whose magic powers, enchanced by long training and a mystrerious elixir, have made him a brilliant fighter"
+                                        ReviewScore: 4
+                                        HowManyPages: 400
+                    description: Returns the books with all details was posted and with Id
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                            examples:
+                                Missing book:
+                                    value:
+                                        Error: One or multiple parameters are missing
+                    description: There is a missing parameters, wasn't added or formantted correcntly
+            summary: Get full details of a Books
+            description: Return full details of a givedn Book based on the id
+    '/books/{id}':
+        delete:
+            tags:
+                - books
+
+            summary: Get full details of a Books
+            description: Return full details of a given Book based on the id
+
+
 components:
     schemas:
         error:

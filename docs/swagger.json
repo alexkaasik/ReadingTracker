@@ -3,13 +3,13 @@
   "info": {
       "title": "TARgv23GameApi",
       "version": "1.0.0",
-      "description": "see all da gaem"
+      "description": "see all da buks"
   },
   "paths": {
-      "/games": {
+      "/books": {
           "get": {
               "tags": [
-                  "games"
+                  "books"
               ],
               "responses": {
                   "200": {
@@ -22,20 +22,21 @@
                                   }
                               },
                               "examples": {
-                                  "List of games": {
+                                  "List of books": {
                                       "value": [
-                                          "Wither 3",
-                                          "CyberPunk 2077"
+                                          "Metro 2033",
+                                          "The Witcher: the last wish",
+                                          "Comfort Me with Apples"
                                       ]
                                   }
                               }
                           }
                       },
-                      "description": "Returns a list of Games"
+                      "description": "Returns a list of books"
                   }
               },
-              "summary": "Get a list of all games",
-              "description": "Returns a list of all games in the api"
+              "summary": "Get a list of all books",
+              "description": "Returns a list of all books in the api"
           }
       }
   }
