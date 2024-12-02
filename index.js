@@ -78,6 +78,20 @@ app.post('/books', (req, res) => {
     .send(book);
 })
 
+app.delete('/books/:id', (req, res) => {
+    if(isNaN(parseInt(req.params.id, 10)) ) {
+        return res.status(400).send({Error: 'bad id'});
+    }
+    if(typeof books[req.params.id-1] === 'undefined') 
+    {
+        return res.status(404).send({Error: 'Book not found'});
+    }
+
+    books.splice(req.params.id-1, 1);
+
+    res.status(204).send({Error: 'No Content'});
+})
+
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.listen(port, () => {console.log(`Backend api jookseb aadressil: http://localhost:${port}`);});
