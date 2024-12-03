@@ -30,32 +30,45 @@ paths:
             tags:
                 - books
             parameters:
-                -
-                    examples:
-                        example id:
-                            value:
-                                - 8
-                    name: id
-                    schema:
-                        type: integer
-                    in: path
-                    required: true
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                  examples:
+                    example id:
+                        value: 8
             responses:
                 '200':
                     content:
                         application/json:
                             schema:
-                                type: array
-                                items:
-                                    type: string
+                                type: object
+                                properties:
+                                    BookId:
+                                        type: integer
+                                    BookName:
+                                        type: string
+                                    Genre:
+                                        type: array
+                                        items:
+                                            type: string
+                                    ReleaseDate:
+                                        type: string
+                                    Description:
+                                        type: string
+                                    ReviewScore:
+                                        type: integer
+                                    HowManyPages:
+                                        type: integer
                             examples:
                                 Book with details:
                                     value:
-                                        BookId: 2, 
+                                        BookId: 2
                                         BookName: "The Witcher: the last wish"
-                                        Gerne: ["Fantasy", "Fiction Short", "Stories", "Audiobook", "High Fantasy", "Adult", "Magic", "Adventure", "Epic Fantasy", "Polish Literature"]
-                                        ReleaseDate : "1993"
-                                        Description: "Geralt the Witcher is a man who whose magic powers, enchanced by long training and a mystrerious elixir, have made him a brilliant fighter"
+                                        Genre: ["Fantasy", "Fiction Short", "Stories", "Audiobook", "High Fantasy", "Adult", "Magic", "Adventure", "Epic Fantasy", "Polish Literature"]
+                                        ReleaseDate: "1993"
+                                        Description: "Geralt the Witcher is a man whose magic powers, enhanced by long training and a mysterious elixir, have made him a brilliant fighter"
                                         ReviewScore: 4
                                         HowManyPages: 400
                     description: Returns details of a book by its id
@@ -68,34 +81,166 @@ paths:
                                 Missing book:
                                     value:
                                         Error: Book not found
-                    description: book was not found in array of books
+                    description: Book was not found in the array of books
             operationId: id
-            summary: Get full details of a Books
+            summary: Get full details of a Book
             description: Return full details of a given Book based on the id
+        put:
+            tags:
+                - books
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                  examples:
+                    example id:
+                        value: 8
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                BookName:
+                                    type: string
+                                Genre:
+                                    type: array
+                                    items:
+                                        type: string
+                                ReleaseDate:
+                                    type: string
+                                Description:
+                                    type: string
+                                ReviewScore:
+                                    type: integer
+                                HowManyPages:
+                                    type: integer
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    BookId:
+                                        type: integer
+                                    BookName:
+                                        type: string
+                                    Genre:
+                                        type: array
+                                        items:
+                                            type: string
+                                    ReleaseDate:
+                                        type: string
+                                    Description:
+                                        type: string
+                                    ReviewScore:
+                                        type: integer
+                                    HowManyPages:
+                                        type: integer
+                            examples:
+                                Updated Book with details:
+                                    value:
+                                        BookId: 8
+                                        BookName: "Updated Book Name"
+                                        Genre: ["Fantasy", "Adventure"]
+                                        ReleaseDate: "2025"
+                                        Description: "Updated description of the book."
+                                        ReviewScore: 5
+                                        HowManyPages: 350
+                    description: Returns the updated book details
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                            examples:
+                                Missing book:
+                                    value:
+                                        Error: Book not found
+                    description: Book was not found in the array of books
+            summary: Update details of a book
+            description: Updates a book's details by its id
+        delete:
+            tags:
+                - books
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                  examples:
+                    example id:
+                        value: 8
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                            examples:
+                                Book deleted:
+                                    value:
+                                        message: "Book successfully deleted"
+                    description: Returns a success message after the book is deleted
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                            examples:
+                                Missing book:
+                                    value:
+                                        Error: Book not found
+                    description: Book was not found in the array of books
+            summary: Delete a book by id
+            description: Deletes the book based on the provided id
+
     /book:
         post:
             tags:
                 - books
-
             responses:
                 '201':
                     content:
                         application/json:
                             schema:
-                                type: array
-                                items:
-                                    type: string
+                                type: object
+                                properties:
+                                    BookId:
+                                        type: integer
+                                    BookName:
+                                        type: string
+                                    Genre:
+                                        type: array
+                                        items:
+                                            type: string
+                                    ReleaseDate:
+                                        type: string
+                                    Description:
+                                        type: string
+                                    ReviewScore:
+                                        type: integer
+                                    HowManyPages:
+                                        type: integer
                             examples:
                                 Book with details:
                                     value:
                                         BookId: 5
                                         BookName: "The Witcher: the last wish"
-                                        Gerne: ["Fantasy", "Fiction Short", "Stories", "Audiobook", "High Fantasy", "Adult", "Magic", "Adventure", "Epic Fantasy", "Polish Literature"]
-                                        ReleaseDate : "1993"
-                                        Description: "Geralt the Witcher is a man who whose magic powers, enchanced by long training and a mystrerious elixir, have made him a brilliant fighter"
+                                        Genre: ["Fantasy", "Fiction Short", "Stories", "Audiobook", "High Fantasy", "Adult", "Magic", "Adventure", "Epic Fantasy", "Polish Literature"]
+                                        ReleaseDate: "1993"
+                                        Description: "Geralt the Witcher is a man whose magic powers, enhanced by long training and a mysterious elixir, have made him a brilliant fighter"
                                         ReviewScore: 4
                                         HowManyPages: 400
-                    description: Returns the books with all details was posted and with Id
+                    description: Returns the book with all details posted and with Id
                 '404':
                     content:
                         application/json:
@@ -105,17 +250,9 @@ paths:
                                 Missing book:
                                     value:
                                         Error: One or multiple parameters are missing
-                    description: There is a missing parameters, wasn't added or formantted correcntly
-            summary: Get full details of a Books
-            description: Return full details of a givedn Book based on the id
-    '/books/{id}':
-        delete:
-            tags:
-                - books
-
-            summary: Get full details of a Books
-            description: Return full details of a given Book based on the id
-
+                    description: There is a missing parameter or it wasn't added/formatted correctly
+            summary: Add a new book
+            description: Adds a new book with full details
 
 components:
     schemas:
