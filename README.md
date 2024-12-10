@@ -8,4 +8,4 @@ project team resources:
 - Apicurio https://studio.apicur.io/apis/112945
 ------------------------------------------------------
 ERD:
-![image](https://github.com/user-attachments/assets/170f4b1a-a1b3-4bcc-b7fe-678e2a3d402e)
+![image](https://raw.githubusercontent.com/alexkaasik/ReadingTracker/refs/heads/AleksanderKaasik/image.png)
