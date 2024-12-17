@@ -52,6 +52,34 @@ app.get('/books/:id', (req, res) => {
     res.send(books[req.params.id-1]);
 })
 
+
+app.put('/Books/:id', (req, res) => {
+    const book = getBook(req, res);
+    if(!book) {return}
+    if (
+        !req.body.BookName ||
+        !req.body.Gerne ||
+        !req.body.ReleaseDate || 
+        !req.body.Description || 
+        !req.body.ReviewScore || 
+        !req.body.HowManyPages)  
+        {
+            return res.status(400).send({error: 'Missing game parameters'});
+        }
+        
+        book.BookName = req.body.BookName;
+        book.Gerne = req.body.Gerne;
+        book.ReleaseDate = req.body.ReleaseDate;
+        book.Description = req.body.Description;
+        book.ReviewScore = req.body.ReviewScore;
+        book.HowManyPages = req.body.HowManyPages;
+    return res
+    .status(201)
+    .location(`${getBaseUrl(req)}/books/${book.id}`)
+    .send(book);
+})
+
+
 app.post('/books', (req, res) => {
     if (
         !req.body.BookName ||
@@ -98,4 +126,19 @@ app.listen(port, () => {console.log(`Backend api jookseb aadressil: http://local
 
 function getBaseUrl(req) {
     return req.connection && req.connection.encrypted ? "https" : "http" + `://${req.headers.host}`;
+}
+
+function getBook(req,res) 
+{
+    const idNumber = parseInt(req.params.id);
+    if(isNaN(idNumber)) {
+        res.status(400).send({Error:`id not found`});
+        return null;
+    }
+    const book = books.find(book => book.BookId === idNumber)
+    if(!book) {
+        res.status(404).send({Error: 'Book not found'});
+        return null;
+    }
+    return book;
 }
