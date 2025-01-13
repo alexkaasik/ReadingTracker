@@ -180,6 +180,20 @@ app.post('/users', (req, res) => {
     .send(user);
 })
 
+app.delete('/users/:id', (req, res) => {
+    if(isNaN(parseInt(req.params.id, 10)) ) {
+        return res.status(400).send({Error: 'bad id'});
+    }
+    if(typeof users[req.params.id-1] === 'undefined') 
+    {
+        return res.status(404).send({Error: 'Book not found'});
+    }
+
+    users.splice(req.params.id-1, 1);
+
+    res.status(204).send({Error: 'No Content'});
+})
+
 // ---- User end ----
 
 
