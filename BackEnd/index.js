@@ -157,6 +157,29 @@ app.get('/users/:id', (req, res) => {
     res.send(books[req.params.id-1]);
 })
 
+
+app.post('/users', (req, res) => {
+    if (
+        !req.body.FirstName ||
+        !req.body.LastName ||
+        !req.body.LastName || 
+        !req.body.Password)
+        {
+            return res.status(400).send({error: 'One or multiple parameters are missing'});
+        }
+    let user = {
+        UserId: users.length+1, 
+        FirstName: req.body.FirstName,
+        LastName: req.body.LastName,
+        UserName : req.body.UserName, 
+        Password: req.body.Password
+    }
+    users.push(user);
+    res.status(201)
+    .location(`${getBaseUrl(req)}/users/${users.length}`)
+    .send(user);
+})
+
 // ---- User end ----
 
 
