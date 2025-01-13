@@ -36,7 +36,26 @@ const books =
     }
 ]
 
+const users = [
+    {
+        UserId: 1,
+        FirstName: "Aleksander",
+        LastName: "Kaasik",
+        UserName: "alka",
+        Password: "PlainText",
+    },
+    {
+        UserId: 2,
+        FirstName: "Mihhail",
+        LastName: "Bajandin",
+        UserName: "alka",
+        Password: "PlainText",
+    }
+]
+
 app.use(express.json());
+
+// ---- Books start ----
 
 app.get('/books', (req, res) => {
     res.send(books);
@@ -119,6 +138,32 @@ app.delete('/books/:id', (req, res) => {
 
     res.status(204).send({Error: 'No Content'});
 })
+
+// ---- Books end ----
+
+// ---- User Start ----
+
+app.get('/users', (req, res) => {
+    res.send(users);
+})
+
+app.get('/users/:id', (req, res) => {
+    if(isNaN(parseInt(req.params.id, 10)) ) {
+        return res.status(400).send({Error: 'bad id'});
+    }
+    if(typeof books[req.params.id] === 'undefined') {
+        return res.status(404).send({Error: 'no user was found'});
+    }
+    res.send(books[req.params.id-1]);
+})
+
+// ---- User end ----
+
+
+
+
+
+
 
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
