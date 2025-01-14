@@ -36,7 +36,26 @@ const books =
     }
 ]
 
+const users = [
+    {
+        UserId: 1,
+        FirstName: "Aleksander",
+        LastName: "Kaasik",
+        UserName: "alka",
+        Password: "PlainText",
+    },
+    {
+        UserId: 2,
+        FirstName: "Mihhail",
+        LastName: "Bajandin",
+        UserName: "alka",
+        Password: "PlainText",
+    }
+]
+
 app.use(express.json());
+
+// ---- Books start ----
 
 app.get('/books', (req, res) => {
     res.send(books);
@@ -120,6 +139,84 @@ app.delete('/books/:id', (req, res) => {
     res.status(204).send({Error: 'No Content'});
 })
 
+// ---- Books end ----
+
+// ---- User Start ----
+
+app.get('/users', (req, res) => {
+    res.send(users);
+})
+
+app.get('/users/:id', (req, res) => {
+    if(isNaN(parseInt(req.params.id, 10)) ) {
+        return res.status(400).send({Error: 'bad id'});
+    }
+    if(typeof books[req.params.id] === 'undefined') {
+        return res.status(404).send({Error: 'no user was found'});
+    }
+    res.send(books[req.params.id-1]);
+})
+
+
+app.post('/users', (req, res) => {
+    if (
+        !req.body.FirstName ||
+        !req.body.LastName ||
+        !req.body.LastName || 
+        !req.body.Password)
+        {
+            return res.status(400).send({error: 'One or multiple parameters are missing'});
+        }
+    let user = {
+        UserId: users.length+1, 
+        FirstName: req.body.FirstName,
+        LastName: req.body.LastName,
+        UserName : req.body.UserName, 
+        Password: req.body.Password
+    }
+    users.push(user);
+    res.status(201)
+    .location(`${getBaseUrl(req)}/users/${users.length}`)
+    .send(user);
+})
+
+app.delete('/users/:id', (req, res) => {
+    if(isNaN(parseInt(req.params.id, 10)) ) {
+        return res.status(400).send({Error: 'bad id'});
+    }
+    if(typeof users[req.params.id-1] === 'undefined') 
+    {
+        return res.status(404).send({Error: 'Book not found'});
+    }
+
+    users.splice(req.params.id-1, 1);
+
+    res.status(204).send({Error: 'No Content'});
+})
+
+app.put('/Users/:id', (req, res) => {
+    const user = getUser(req, res);
+    if(!user) {return}
+    if (
+        !req.body.FirstName ||
+        !req.body.LastName ||
+        !req.body.LastName || 
+        !req.body.Password) 
+        {
+            return res.status(400).send({error: 'Missing game parameters'});
+        }  
+        user.FirstName = req.body.FirstName,
+        user.LastName = req.body.LastName,
+        user.UserName = req.body.UserName, 
+        user.Password = req.body.Password
+    return res
+    .status(201)
+    .location(`${getBaseUrl(req)}/users/${user.id}`)
+    .send(user);
+})
+
+// ---- User end ----   
+
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.listen(port, () => {console.log(`Backend api jookseb aadressil: http://localhost:${port}`);});
@@ -141,4 +238,19 @@ function getBook(req,res)
         return null;
     }
     return book;
+}
+
+function getUser(req,res) 
+{
+    const idNumber = parseInt(req.params.id);
+    if(isNaN(idNumber)) {
+        res.status(400).send({Error:`id not found`});
+        return null;
+    }
+    const user = users.find(user => user.UserId === idNumber)
+    if(!user) {
+        res.status(404).send({Error: 'User was not found'});
+        return null;
+    }
+    return user;
 }
