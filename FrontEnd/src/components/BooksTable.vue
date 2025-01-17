@@ -26,7 +26,10 @@ export default {
                     <td>{{ item.BookName }}</td>
                     <td>{{ item.Description }}</td>
                     <td>
-                        <div v-for="Gerne in item.Gerne" :key="Gerne">{{ Gerne }},</div>
+                        <template  v-for="(Gerne, index) in item.Gerne" :key="index">
+                            <div v-if="index < item.Gerne.length-1">{{ Gerne }},</div>
+                            <div v-else>{{ Gerne }}</div> 
+                        </template >
                     </td>
                     <td>{{ item.ReleaseDate  }}</td>
                     <td>{{ item.ReviewScore }}</td>
