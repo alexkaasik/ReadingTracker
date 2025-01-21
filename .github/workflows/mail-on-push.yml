@@ -20,7 +20,7 @@ jobs:
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: " Tere, Mihhail, Push Notification for ${{ github.repository }} on branch ${{ github.ref }}"
-          to: "jyri.vaitmaa@tthk.ee"
+          to: jyri.vaitmaa@tthk.ee
           body: |
             Tere, Mihhail
             Tehti push järgmisele repositooriumile: ${{ github.repository }} harusse: ${{ github.ref }}.
