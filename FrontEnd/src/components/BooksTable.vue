@@ -18,6 +18,7 @@ export default {
                     <th>ReleaseDate </th>
                     <th>ReviewScore</th>
                     <th>Length</th>
+                    <td></td>
                 </tr>
             </thead>
             <tbody>
@@ -34,6 +35,7 @@ export default {
                     <td>{{ item.ReleaseDate  }}</td>
                     <td>{{ item.ReviewScore }}</td>
                     <td>{{ item.HowManyPages }} pages</td>                    
+                    <td><a :href="'/books/'+  item.BookId"></a></td>
                 </tr>
             </tbody>
             
