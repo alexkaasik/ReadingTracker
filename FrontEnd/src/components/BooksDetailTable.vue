@@ -3,7 +3,17 @@ export default {
     name: "BooksDetail",
     props: {
         item: {}
+    },
+    methods: {
+    ConvertArrayToString: function (List) {
+        var Result= ""
+        for (let index = 0; index < List.length; index++) {
+            Result = Result + ", " + List[index];
+        }
+        
+        return Result.slice(1).slice(1)
     }
+  }
 }
 </script>
 
@@ -20,7 +30,9 @@ export default {
             </tr>
             <tr>
                 <td>Gerne</td>
-                <td>{{ item.Gerne }}</td>
+                <td>
+                    {{ ConvertArrayToString(item.Gerne) }}
+                </td>
             </tr>
             <tr>
                 <td>Description</td>
@@ -32,10 +44,14 @@ export default {
             </tr>
             <tr>
                 <td>Lenght</td>
-                <td>{{ item.HowManyPages }}</td>
+                <td>{{ item.HowManyPages }} pages</td>
             </tr>
-        </table>
+            <tr>
+                <a href="/books">Back</a>
+            </tr>
+        </table>  
     </body>
+    
 </template>
 
 <style scoped>

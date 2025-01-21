@@ -8,7 +8,8 @@ export default{
         }
     },
     async created() {
-        this.oneBook = await (await fetch(`http://localhost:8080/books/${this.route.id}`)).json();
+
+        this.oneBook = await (await fetch(`http://localhost:8080/books/${this.$route.params.BookId}`)).json();
         //console.log("called from gamesview");  // for debugging purposes
     }
 }
