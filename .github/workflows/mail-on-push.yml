@@ -1,37 +1,38 @@
-# name: Send email on push
+name: Send email on push
   
-# on:
-#   push:
-#     branches:
-#       - main # Kontrollib, kas push on tehtud 'main' harusse
+on:
+  push:
+    branches:
+      - main # Kontrollib, kas push on tehtud 'main' harusse
 
-# jobs:
-#   mail_on_push:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Send mail
-#         # kasutatakse GitHubi tegevust e-kirjade saatmiseks
-#         uses: dawidd6/action-send-mail@v3
-#         with:
-#           # SMTP serveri aadress ja port Gmaili jaoks
-#           server_address: smtp.gmail.com
-#           server_port: 465
-#           # kasutajanimi ja parool, mis on salvestatud GitHubi saladustesse
-#           username: ${{ secrets.MAIL_USERNAME }}
-#           password: ${{ secrets.MAIL_PASSWORD }}
-#           subject: "Push Notification for ${{ github.repository }} on branch ${{ github.ref }}"
-#           to: "aitmaa@tthk.ee"
-#           body: |
-#             Tehti push järgmisele repositooriumile: ${{ github.repository }} harusse: ${{ github.ref }}.
+jobs:
+  mail_on_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send mail
+        # kasutatakse GitHubi tegevust e-kirjade saatmiseks
+        uses: dawidd6/action-send-mail@v3
+        with:
+          # SMTP serveri aadress ja port Gmaili jaoks
+          server_address: smtp.gmail.com
+          server_port: 465
+          # kasutajanimi ja parool, mis on salvestatud GitHubi saladustesse
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: " Tere, Mihhail, Push Notification for ${{ github.repository }} on branch ${{ github.ref }}"
+          to: "jyri.vaitmaa@tthk.ee"
+          body: |
+            Tere, Mihhail
+            Tehti push järgmisele repositooriumile: ${{ github.repository }} harusse: ${{ github.ref }}.
   
-#             **Detailid:**
-#             - Commit: ${{ github.sha }}
-#             - Commiti sõnum: ${{ github.event.head_commit.message }}
-#             - Commiti autor: ${{ github.event.head_commit.author.name }} ({{ github.event.head_commit.author.email }})
-#             - Pusher: ${{ github.event.pusher.name }}
-#             - **Pushi kuupäev ja aeg**: ${{ github.event.head_commit.timestamp }}
+            **Detailid:**
+            - Commit: ${{ github.sha }}
+            - Commiti sõnum: ${{ github.event.head_commit.message }}
+            - Commiti autor: ${{ github.event.head_commit.author.name }} ({{ github.event.head_commit.author.email }})
+            - Pusher: ${{ github.event.pusher.name }}
+            - **Pushi kuupäev ja aeg**: ${{ github.event.head_commit.timestamp }}
   
-#             Vaata commit'i GitHubis: [Commiti link](${{ github.event.head_commit.url }})
+            Vaata commit'i GitHubis: [Commiti link](${{ github.event.head_commit.url }})
   
-#           # saatja nimi, mis kuvatakse e-kirjas
-#           from: Github Actions
+          # saatja nimi, mis kuvatakse e-kirjas
+          from: Github Actions
