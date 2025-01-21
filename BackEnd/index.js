@@ -65,10 +65,10 @@ app.get('/books', (req, res) => {
 })
 
 app.get('/books/:id', (req, res) => {
-    if(isNaN(parseInt(req.params.id, 10)) ) {
+    if(isNaN(parseInt(req.params.id-1, 10)) ) {
         return res.status(400).send({Error: 'bad id'});
     }
-    if(typeof books[req.params.id] === 'undefined') {
+    if(typeof books[req.params.id]-1 === 'undefined') {
         return res.status(404).send({Error: 'Books not found'});
     }
     res.send(books[req.params.id-1]);
@@ -151,10 +151,10 @@ app.get('/users', (req, res) => {
 })
 
 app.get('/users/:id', (req, res) => {
-    if(isNaN(parseInt(req.params.id, 10)) ) {
+    if(isNaN(parseInt(req.params.id-1, 10)) ) {
         return res.status(400).send({Error: 'bad id'});
     }
-    if(typeof books[req.params.id] === 'undefined') {
+    if(typeof books[req.params.id-1] === 'undefined') {
         return res.status(404).send({Error: 'no user was found'});
     }
     res.send(books[req.params.id-1]);
