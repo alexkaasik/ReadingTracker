@@ -6,7 +6,6 @@ const yamljs = require('yamljs');
 /* const swaggerDocument = require('./docs/swagger.json'); */
 const swaggerDocument = yamljs.load('./docs/swagger.yaml');
 var express = require('express')
-const cors = require("cors")
 
 const books = 
 [
@@ -58,11 +57,8 @@ const users = [
 
 app.use(express.json());
 app.use(cors());
-<<<<<<< HEAD
-=======
 
 // ---- Books start ----
->>>>>>> e70e96a5f48e898cc5b2d565d2b5c3583311754b
 
 app.get('/books', (req, res) => {
     res.send(books);
