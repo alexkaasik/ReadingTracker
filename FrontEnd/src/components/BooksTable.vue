@@ -24,6 +24,7 @@ export default {
                     <td>{{ item.HowManyPages }} pages</td>                    
                     <td>
                         <a :href="'/books/' + item.BookId">Detail</a>
+                        <a :href="'/books/update/' + item.BookId">Update</a>
                         <a :href="'/books/delete/' + item.BookId">Delete</a>
                     </td>
                 </tr>

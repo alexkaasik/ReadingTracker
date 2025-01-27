@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import BookView from '../views/BooksView.vue'
 import BookDetail from '../views/BooksDetail.vue'
 import BookCreate from '../views/BooksCreate.vue'
+import BookUpdate from '../views/BooksUpdate.vue'
 import BookDelete from '../views/BooksDelete.vue'
 import BookConfirmDelete from '../views/BooksConfirmDelete.vue'
 
@@ -36,6 +37,11 @@ const router = createRouter({
       path: '/books/create',
       name: "book create",
       component: BookCreate,
+    },
+    {
+      path: '/books/update/:BookId',
+      name: "book update",
+      component: BookUpdate,
     },
     {
       path: '/books/delete/:BookId',
