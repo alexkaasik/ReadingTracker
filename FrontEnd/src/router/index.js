@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import BookView from '../views/BooksView.vue'
 import BookDetail from '../views/BooksDetail.vue'
+import BookCreate from '../views/BooksCreate.vue'
 import BookDelete from '../views/BooksDelete.vue'
 import BookConfirmDelete from '../views/BooksConfirmDelete.vue'
 
@@ -30,6 +31,11 @@ const router = createRouter({
       path: '/books/:BookId',
       name: "book detail",
       component: BookDetail,
+    },
+    {
+      path: '/books/create',
+      name: "book create",
+      component: BookCreate,
     },
     {
       path: '/books/delete/:BookId',

@@ -27,6 +27,7 @@ export default {
                         <a :href="'/books/delete/' + item.BookId">Delete</a>
                     </td>
                 </tr>
+                <a :href="'/books/create'">Create</a>
             </tbody>
         </table>
     </body>
