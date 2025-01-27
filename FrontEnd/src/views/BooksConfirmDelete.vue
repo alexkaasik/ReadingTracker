@@ -17,7 +17,7 @@ export default{
             alert("Book deleted successfully.");
         } catch (error) {
             console.error("Error deleting book:", error);
-            alert("Failed to delete the client. Please try again.");
+            alert("Failed to delete the book. Please try again.");
         }
 
         this.$router.push('/books')
