@@ -35,6 +35,10 @@ export default {
                 </td>
             </tr>
             <tr>
+                <td>ReleaseDate</td>
+                <td>{{ item.ReleaseDate }}</td>
+            </tr>
+            <tr>
                 <td>Description</td>
                 <td>{{ item.Description }}</td>
             </tr>
