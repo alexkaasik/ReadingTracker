@@ -8,7 +8,7 @@ export default{
         }
     },
     async created() {
-        const confirmation = confirm("Are you sure you want to delete this client?")
+        const confirmation = confirm("Are you sure you want to delete this book?")
         if (!confirmation) return;
 
         try {
