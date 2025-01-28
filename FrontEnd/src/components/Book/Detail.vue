@@ -1,14 +1,13 @@
 <script>
 export default {
-    name: "BooksDetail",
     props: {
         item: {}
     },
     methods: {
-    ConvertArrayToString: function (List) {
+    ConvertArrayToString: function (ListOfGerne) {
         var Result= ""
-        for (let index = 0; index < List.length; index++) {
-            Result = Result + ", " + List[index];
+        for (let index = 0; index < ListOfGerne.length; index++) {
+            Result = Result + ", " + ListOfGerne[index];
         }
         
         return Result.slice(1).slice(1)
@@ -44,14 +43,14 @@ export default {
             </tr>
             <tr>
                 <td>Review Score</td>
-                <td>{{ item.BookId }}</td>
+                <td>{{ item.ReviewScore }}</td>
             </tr>
             <tr>
                 <td>Lenght</td>
                 <td>{{ item.HowManyPages }} pages</td>
             </tr>
             <tr>
-                <a href="/books">Back</a>
+                <a href="/book">Back</a>
             </tr>
         </table>  
     </body>

@@ -1,14 +1,14 @@
 <script>
-import BooksTable from '../components/BooksTable.vue';
+import BookIndex from '../../components/Book/Index.vue';
 export default{
-    components: { BooksTable },
+    components: { BookIndex },
     data() {
         return {
-            allBooks: []
+            AllBooks: []
         }
     },
     async created() {
-        this.allBooks = await (await fetch('http://localhost:8080/books')).json();
+        this.AllBooks = await (await fetch('http://localhost:8080/books')).json();
         //console.log("called from gamesview");  // for debugging purposes
     }
 }
@@ -16,7 +16,7 @@ export default{
 
 <template>
     <main>
-        <BooksTable :items=allBooks />
+        <BookIndex :items=AllBooks />
     </main>
 </template>
 
