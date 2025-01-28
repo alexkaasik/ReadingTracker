@@ -1,11 +1,11 @@
 const app = require('express')();
 const port = 8080;
+const cors = require("cors")
 const swaggerUI = require('swagger-ui-express');
 const yamljs = require('yamljs');
 /* const swaggerDocument = require('./docs/swagger.json'); */
 const swaggerDocument = yamljs.load('./docs/swagger.yaml');
 var express = require('express')
-const cors = require("cors")
 
 const books = 
 [

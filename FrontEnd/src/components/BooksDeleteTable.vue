@@ -52,6 +52,7 @@ export default {
             </tr>
             <tr>
                 <a href="/books">Back</a>
+                <a :href="'/books/delete/confirmation/' + item.BookId">Delete</a>
             </tr>
         </table>  
     </body>
