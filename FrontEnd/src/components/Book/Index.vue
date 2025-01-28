@@ -1,6 +1,5 @@
 <script>
 export default {
-    name: "BooksTable",
     props: {
         items: Array
     }
@@ -23,12 +22,12 @@ export default {
                     <td>{{ item.BookName }}</td>
                     <td>{{ item.HowManyPages }} pages</td>                    
                     <td>
-                        <a :href="'/books/' + item.BookId">Detail</a>
-                        <a :href="'/books/update/' + item.BookId">Update</a>
-                        <a :href="'/books/delete/' + item.BookId">Delete</a>
+                        <a :href="'/book/detail/' + item.BookId">Detail</a>
+                        <a :href="'/book/update/' + item.BookId">Update</a>
+                        <a :href="'/book/delete/' + item.BookId">Delete</a>
                     </td>
                 </tr>
-                <a :href="'/books/create'">Create</a>
+                <a :href="'/book/create'">Create</a>
             </tbody>
         </table>
     </body>

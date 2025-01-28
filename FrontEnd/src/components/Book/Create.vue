@@ -1,20 +1,19 @@
 <script>
 export default {
-    name: "BooksCreate",
     props: {
         item: {}
     },
     methods: {
         async SubmitFormBook() {
             //console.log("Form submitted", this.item);
-            const response = await fetch("http://localhost:8080/books", {
+            await fetch("http://localhost:8080/books", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(this.item),
             });
-            this.$router.push('/books')
+            this.$router.push('/book')
         },
         ClearForm() {
             this.item = {
@@ -123,7 +122,7 @@ export default {
                     <td colspan="2" style="text-align: center;">
                         <button type="submit">Submit</button>
                         <button type="button" @click="ClearForm">Reset</button>
-                        <a href="/books">Back</a>
+                        <a href="/book">Back</a>
                     </td>
                 </tr>
             </table>

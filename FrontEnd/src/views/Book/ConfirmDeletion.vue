@@ -1,15 +1,13 @@
 <script>
-//import BooksConfirmDelete from '../components/BooksDelete.vue';
 export default{
-    //components: { BooksConfirmDelete },
     data() {
         return {
-            oneBook: {}
+            BooknDeleteConfirmatioData: {}
         }
     },
     async created() {
         const confirmation = confirm("Are you sure you want to delete this book?")
-        if (!confirmation) return;
+        if (!confirmation) { this.$router.push('/book'); return };
 
         try {
             await fetch(`http://localhost:8080/books/${this.$route.params.BookId}`, {method: 'DELETE'});
@@ -20,7 +18,7 @@ export default{
             alert("Failed to delete the book. Please try again.");
         }
 
-        this.$router.push('/books')
+        this.$router.push('/book')
         //console.log("called from gamesview");  // for debugging purposes
     }
 }

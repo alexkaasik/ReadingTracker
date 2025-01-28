@@ -1,20 +1,19 @@
 <script>
 export default {
-    name: "BooksUpdate",
     props: {
         item: Object, // Holds origanal data
     },
     data() {
         return {
-            newGenre: "",
+            NewGenre: "",
             EditedItem: {},
         };
     },
     watch: {
         item: {
             immediate: true,
-            handler(newItem) {
-                this.initializeEditedItem(newItem);
+            handler(NewItem) {
+                this.initializeEditedItem(NewItem);
             },
         },
     },
@@ -37,7 +36,7 @@ export default {
                 });
                 if (response.ok) {
                     // Navigate to the books page after successful submission
-                    this.$router.push("/books");
+                    this.$router.push("/book");
                 } else {
                     console.error("Failed to submit form:", await response.text());
                 }
@@ -47,12 +46,12 @@ export default {
         },
         ClearForm() {
             this.initializeEditedItem();
-            this.newGenre = "";
+            this.NewGenre = "";
         },
         AddGenre() {
-            if (this.newGenre.trim() !== "") {
-                this.EditedItem.Gerne.push(this.newGenre.trim());
-                this.newGenre = "";
+            if (this.NewGenre.trim() !== "") {
+                this.EditedItem.Gerne.push(this.NewGenre.trim());
+                this.NewGenre = "";
             }
         },
         RemoveGenre(index) {
@@ -93,7 +92,7 @@ export default {
                             </ul>
                             <input
                                 type="text"
-                                v-model="newGenre"
+                                v-model="NewGenre"
                                 placeholder="Enter a genre"
                             />
                             <button type="button" @click="AddGenre">Add</button>
@@ -150,7 +149,7 @@ export default {
                     <td colspan="2" style="text-align: center;">
                         <button type="submit">Submit</button>
                         <button type="button" @click="ClearForm">Reset</button>
-                        <a href="/books">Back</a>
+                        <a href="/book">Back</a>
                     </td>
                 </tr>
             </table>

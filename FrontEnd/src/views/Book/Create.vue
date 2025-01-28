@@ -1,11 +1,11 @@
 <script>
-import BookCreateTable from '../components/BooksCreateTable.vue';
+import BookCreate from '../../components/Book/Create.vue';
 export default{
-    components: { BookCreateTable },
+    components: { BookCreate },
     
     data() {
         return {
-            oneBook: {
+            BookCreateData: {
                 BookName: "",
                 Gerne: [],
                 ReleaseDate: "",
@@ -21,7 +21,7 @@ export default{
 
 <template>
     <main>
-        <BookCreateTable :item=oneBook />
+        <BookCreate :item=BookCreateData />
     </main>
 </template>
 
