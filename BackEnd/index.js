@@ -121,6 +121,13 @@ app.delete('/books/:id', (req, res) => {
     res.status(204).send();
 });
 
+app.get('/users/:id', (req, res) => {
+    const user = users.find(u => u.UserId === parseInt(req.params.id));
+    if (!user) {
+        return res.status(404).send({ Error: 'User not found' });
+    }
+    res.send(user);
+});
 
 
 app.get('/users', (req, res) => {
