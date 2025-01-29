@@ -134,6 +134,22 @@ app.get('/users', (req, res) => {
     res.send(users);
 });
 
+app.post('/users', (req, res) => {
+    if (!req.body.FirstName || !req.body.LastName || !req.body.UserName || !req.body.Password) {
+        return res.status(400).send({ Error: 'Missing user parameters' });
+    }
+    const newUser = {
+        UserId: users.length + 1,
+        FirstName: req.body.FirstName,
+        LastName: req.body.LastName,
+        UserName: req.body.UserName,
+        Password: req.body.Password,
+        OwnerShipListID: req.body.OwnerShipListID || null
+    };
+    users.push(newUser);
+    res.status(201).send(newUser);
+});
+
 
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
