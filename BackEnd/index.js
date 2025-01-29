@@ -162,6 +162,15 @@ app.put('/users/:id', (req, res) => {
     res.send(user);
 });
 
+app.delete('/users/:id', (req, res) => {
+    const index = users.findIndex(u => u.UserId === parseInt(req.params.id));
+    if (index === -1) {
+        return res.status(404).send({ Error: 'User not found' });
+    }
+    users.splice(index, 1);
+    res.status(204).send();
+});
+
 
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
