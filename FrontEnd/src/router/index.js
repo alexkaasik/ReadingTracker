@@ -5,7 +5,7 @@ import BookDetailPage from '../views/Book/Detail.vue'
 import BookCreatePage from '../views/Book/Create.vue'
 import BookUpdatePage from '../views/Book/Update.vue'
 import BookDeletePage from '../views/Book/Delete.vue'
-import BookConfirmDelete from '../views/Book/ConfirmDelete.vue'
+import BookConfirmDelete from '../views/Book/ConfirmDeletion.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
