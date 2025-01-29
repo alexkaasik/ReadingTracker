@@ -1,17 +1,9 @@
-<script>
-export default {
-  name: "UsersTable",
-  props: {
-    users: Array,
-  },
-};
-</script>
-
 <template>
   <div>
     <table class="table">
       <thead>
         <tr>
+          <th>User ID</th>
           <th>First Name</th>
           <th>Last Name</th>
           <th>Username</th>
@@ -21,6 +13,7 @@ export default {
       </thead>
       <tbody>
         <tr v-for="user in users" :key="user.UserId">
+          <td>{{ user.UserId }}</td>
           <td>{{ user.FirstName }}</td>
           <td>{{ user.LastName }}</td>
           <td>{{ user.UserName }}</td>
@@ -37,32 +30,4 @@ export default {
   </div>
 </template>
 
-<style scoped>
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-th, td {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
-a {
-  color: #00c58e;
-  text-decoration: none;
-  margin-right: 10px;
-}
-.delete-btn {
-  color: red;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-.create-btn {
-  display: block;
-  margin-top: 10px;
-  color: #00c58e;
-  text-decoration: none;
-}
-</style>
 
