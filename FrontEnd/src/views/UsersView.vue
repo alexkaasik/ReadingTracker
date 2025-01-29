@@ -5,7 +5,7 @@ export default {
   components: { UsersTable },
   data() {
     return {
-      users: []
+      users: [],
     };
   },
   async created() {
@@ -15,13 +15,24 @@ export default {
     } catch (error) {
       console.error("Failed to fetch users:", error);
     }
+  },
+  methods: {
+    async deleteUser(userId) {
+      try {
+        await fetch(`http://localhost:8080/users/${userId}`, { method: "DELETE" });
+        this.users = this.users.filter(user => user.UserId !== userId);
+      } catch (error) {
+        console.error("Failed to delete user:", error);
+      }
+    }
   }
-}
+};
 </script>
 
 <template>
   <div>
     <h2>Users List</h2>
-    <UsersTable :users="users" />
+    <UsersTable :users="users" @delete-user="deleteUser" />
   </div>
 </template>
+
