@@ -150,6 +150,18 @@ app.post('/users', (req, res) => {
     res.status(201).send(newUser);
 });
 
+app.put('/users/:id', (req, res) => {
+    const user = users.find(u => u.UserId === parseInt(req.params.id));
+    if (!user) {
+        return res.status(404).send({ Error: 'User not found' });
+    }
+    user.FirstName = req.body.FirstName;
+    user.LastName = req.body.LastName;
+    user.UserName = req.body.UserName;
+    user.Password = req.body.Password;
+    res.send(user);
+});
+
 
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
