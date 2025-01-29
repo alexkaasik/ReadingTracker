@@ -65,6 +65,7 @@ app.use(express.json());
 app.use(cors());
 
 
+
 app.get('/books', (req, res) => {
     res.send(books);
 });
@@ -121,6 +122,7 @@ app.delete('/books/:id', (req, res) => {
 });
 
 
+
 app.get('/ownerships', (req, res) => {
     res.send(ownerships);
 });
@@ -132,6 +134,21 @@ app.get('/ownerships/:id', (req, res) => {
     }
     res.send(ownership);
 });
+
+app.post('/ownerships', (req, res) => {
+    if (!req.body.UserId || !req.body.BookId || !req.body.Status) {
+        return res.status(400).send({ Error: 'Missing parameters' });
+    }
+    const newOwnership = {
+        OwnerId: ownerships.length + 1,
+        UserId: req.body.UserId,
+        BookId: req.body.BookId,
+        Status: req.body.Status
+    };
+    ownerships.push(newOwnership);
+    res.status(201).send(newOwnership);
+});
+
 
 
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
