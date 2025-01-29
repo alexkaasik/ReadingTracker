@@ -79,6 +79,80 @@ paths:
             responses:
                 '201':
                     description: Created book
+    /users:
+        get:
+            summary: Get all users
+            responses:
+                '200':
+                    description: A list of users
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/User'
+    /users/{id}:
+        get:
+            summary: Get user by ID
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+            responses:
+                '200':
+                    description: User details
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/User'
+                '404':
+                    description: User not found
+        put:
+            summary: Update a user
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/User'
+            responses:
+                '200':
+                    description: Updated user details
+                '404':
+                    description: User not found
+        delete:
+            summary: Delete a user by ID
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+            responses:
+                '204':
+                    description: User deleted
+                '404':
+                    description: User not found
+    /users:
+        post:
+            summary: Add a new user
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/User'
+            responses:
+                '201':
+                    description: Created user
     /ownerships:
         get:
             summary: Get all ownerships
@@ -173,6 +247,21 @@ components:
                 ReviewScore:
                     type: integer
                 HowManyPages:
+                    type: integer
+        User:
+            type: object
+            properties:
+                UserId:
+                    type: integer
+                FirstName:
+                    type: string
+                LastName:
+                    type: string
+                UserName:
+                    type: string
+                Password:
+                    type: string
+                OwnerShipListID:
                     type: integer
         Ownership:
             type: object
