@@ -172,7 +172,7 @@ app.get('/users/:id', (req, res) => {
         return res.status(400).send({Error: 'bad id'});
     }
 
-    const user = getBook(req, res);
+    const user = getUser(req, res);
     
     if (!user) { return }
 
