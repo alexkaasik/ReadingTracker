@@ -7,7 +7,7 @@ const yamljs = require('yamljs');
 const swaggerDocument = yamljs.load('./docs/swagger.yaml');
 var express = require('express')
 
-const books = 
+let books = 
 [
     {
         BookId: 1, 
@@ -38,7 +38,7 @@ const books =
     }
 ]
 
-const users = [
+let users = [
     {
         UserId: 1,
         FirstName: "Aleksander",
@@ -129,16 +129,17 @@ app.post('/books', (req, res) => {
 })
 
 app.delete('/books/:id', (req, res) => {
+
+    const book = getBook(req, res);
+
+    if(!book) {return}
+
     if(isNaN(parseInt(req.params.id, 10)) ) {
         return res.status(400).send({Error: 'bad id'});
     }
-    if(typeof books[req.params.id-1] === 'undefined') 
-    {
-        return res.status(404).send({Error: 'Book not found'});
-    }
 
-    books.splice(req.params.id-1, 1);
-
+    books = books.filter(val => val.BookId !== book.BookId)
+    
     res.status(204).send({Error: 'No Content'});
 })
 
@@ -184,6 +185,7 @@ app.post('/users', (req, res) => {
 })
 
 app.delete('/users/:id', (req, res) => {
+    const user = getUser(req, res);
     if(isNaN(parseInt(req.params.id, 10)) ) {
         return res.status(400).send({Error: 'bad id'});
     }
@@ -193,6 +195,8 @@ app.delete('/users/:id', (req, res) => {
     }
 
     users.splice(req.params.id-1, 1);
+
+    users = users.filter(val => val.UserId !== user.UserId)
 
     res.status(204).send({Error: 'No Content'});
 })
@@ -231,6 +235,7 @@ function getBaseUrl(req) {
 function getBook(req,res) 
 {
     const idNumber = parseInt(req.params.id);
+    
     if(isNaN(idNumber)) {
         res.status(400).send({Error:`id not found`});
         return null;
@@ -240,6 +245,7 @@ function getBook(req,res)
         res.status(404).send({Error: 'Book not found'});
         return null;
     }
+
     return book;
 }
 
