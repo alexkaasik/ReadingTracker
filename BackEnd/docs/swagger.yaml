@@ -2,260 +2,275 @@ openapi: 3.0.2
 info:
     title: TARgv23ReadingTrackerApi
     version: 1.0.0
-    description: see all da buks
+    description: API for managing books, users, and ownerships
 paths:
     /books:
         get:
-            tags:
-                - books
+            summary: Get all books
+            description: Returns a list of all books
             responses:
                 '200':
+                    description: A list of books
                     content:
                         application/json:
                             schema:
                                 type: array
                                 items:
-                                    type: string
-                            examples:
-                                List of books:
-                                    value:
-                                        - "Wither "
-                                        - "Metro 2033"
-                                        - "Comfort Me with Apples"
-                    description: Returns a list of books
-            summary: Get a list of all books
-            description: Returns a list of all books in the api
-    '/books/{id}':
+                                    $ref: '#/components/schemas/Book'
+    /books/{id}:
         get:
-            tags:
-                - books
+            summary: Get book by ID
             parameters:
                 - name: id
                   in: path
                   required: true
                   schema:
                     type: integer
-                  examples:
-                    example id:
-                        value: 8
             responses:
                 '200':
+                    description: Details of the book
                     content:
                         application/json:
                             schema:
-                                type: object
-                                properties:
-                                    BookId:
-                                        type: integer
-                                    BookName:
-                                        type: string
-                                    Genre:
-                                        type: array
-                                        items:
-                                            type: string
-                                    ReleaseDate:
-                                        type: string
-                                    Description:
-                                        type: string
-                                    ReviewScore:
-                                        type: integer
-                                    HowManyPages:
-                                        type: integer
-                            examples:
-                                Book with details:
-                                    value:
-                                        BookId: 2
-                                        BookName: "The Witcher: the last wish"
-                                        Genre: ["Fantasy", "Fiction Short", "Stories", "Audiobook", "High Fantasy", "Adult", "Magic", "Adventure", "Epic Fantasy", "Polish Literature"]
-                                        ReleaseDate: "1993"
-                                        Description: "Geralt the Witcher is a man whose magic powers, enhanced by long training and a mysterious elixir, have made him a brilliant fighter"
-                                        ReviewScore: 4
-                                        HowManyPages: 400
-                    description: Returns details of a book by its id
+                                $ref: '#/components/schemas/Book'
                 '404':
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error'
-                            examples:
-                                Missing book:
-                                    value:
-                                        Error: Book not found
-                    description: Book was not found in the array of books
-            operationId: id
-            summary: Get full details of a Book
-            description: Return full details of a given Book based on the id
+                    description: Book not found
         put:
-            tags:
-                - books
+            summary: Update a book
             parameters:
                 - name: id
                   in: path
                   required: true
                   schema:
                     type: integer
-                  examples:
-                    example id:
-                        value: 8
             requestBody:
                 required: true
                 content:
                     application/json:
                         schema:
-                            type: object
-                            properties:
-                                BookName:
-                                    type: string
-                                Genre:
-                                    type: array
-                                    items:
-                                        type: string
-                                ReleaseDate:
-                                    type: string
-                                Description:
-                                    type: string
-                                ReviewScore:
-                                    type: integer
-                                HowManyPages:
-                                    type: integer
+                            $ref: '#/components/schemas/Book'
             responses:
                 '200':
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    BookId:
-                                        type: integer
-                                    BookName:
-                                        type: string
-                                    Genre:
-                                        type: array
-                                        items:
-                                            type: string
-                                    ReleaseDate:
-                                        type: string
-                                    Description:
-                                        type: string
-                                    ReviewScore:
-                                        type: integer
-                                    HowManyPages:
-                                        type: integer
-                            examples:
-                                Updated Book with details:
-                                    value:
-                                        BookId: 8
-                                        BookName: "Updated Book Name"
-                                        Genre: ["Fantasy", "Adventure"]
-                                        ReleaseDate: "2025"
-                                        Description: "Updated description of the book."
-                                        ReviewScore: 5
-                                        HowManyPages: 350
-                    description: Returns the updated book details
+                    description: Updated book details
                 '404':
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error'
-                            examples:
-                                Missing book:
-                                    value:
-                                        Error: Book not found
-                    description: Book was not found in the array of books
-            summary: Update details of a book
-            description: Updates a book's details by its id
+                    description: Book not found
         delete:
-            tags:
-                - books
+            summary: Delete a book by ID
             parameters:
                 - name: id
                   in: path
                   required: true
                   schema:
                     type: integer
-                  examples:
-                    example id:
-                        value: 8
             responses:
-                '200':
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    message:
-                                        type: string
-                            examples:
-                                Book deleted:
-                                    value:
-                                        message: "Book successfully deleted"
-                    description: Returns a success message after the book is deleted
+                '204':
+                    description: Book deleted
                 '404':
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error'
-                            examples:
-                                Missing book:
-                                    value:
-                                        Error: Book not found
-                    description: Book was not found in the array of books
-            summary: Delete a book by id
-            description: Deletes the book based on the provided id
-
-    /book:
+                    description: Book not found
+    /books:
         post:
-            tags:
-                - books
+            summary: Add a new book
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Book'
             responses:
                 '201':
+                    description: Created book
+    /users:
+        get:
+            summary: Get all users
+            responses:
+                '200':
+                    description: A list of users
                     content:
                         application/json:
                             schema:
-                                type: object
-                                properties:
-                                    BookId:
-                                        type: integer
-                                    BookName:
-                                        type: string
-                                    Genre:
-                                        type: array
-                                        items:
-                                            type: string
-                                    ReleaseDate:
-                                        type: string
-                                    Description:
-                                        type: string
-                                    ReviewScore:
-                                        type: integer
-                                    HowManyPages:
-                                        type: integer
-                            examples:
-                                Book with details:
-                                    value:
-                                        BookId: 5
-                                        BookName: "The Witcher: the last wish"
-                                        Genre: ["Fantasy", "Fiction Short", "Stories", "Audiobook", "High Fantasy", "Adult", "Magic", "Adventure", "Epic Fantasy", "Polish Literature"]
-                                        ReleaseDate: "1993"
-                                        Description: "Geralt the Witcher is a man whose magic powers, enhanced by long training and a mysterious elixir, have made him a brilliant fighter"
-                                        ReviewScore: 4
-                                        HowManyPages: 400
-                    description: Returns the book with all details posted and with Id
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/User'
+    /users/{id}:
+        get:
+            summary: Get user by ID
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+            responses:
+                '200':
+                    description: User details
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/User'
                 '404':
+                    description: User not found
+        put:
+            summary: Update a user
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/User'
+            responses:
+                '200':
+                    description: Updated user details
+                '404':
+                    description: User not found
+        delete:
+            summary: Delete a user by ID
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+            responses:
+                '204':
+                    description: User deleted
+                '404':
+                    description: User not found
+    /users:
+        post:
+            summary: Add a new user
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/User'
+            responses:
+                '201':
+                    description: Created user
+    /ownerships:
+        get:
+            summary: Get all ownerships
+            responses:
+                '200':
+                    description: A list of ownerships
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/error'
-                            examples:
-                                Missing book:
-                                    value:
-                                        Error: One or multiple parameters are missing
-                    description: There is a missing parameter or it wasn't added/formatted correctly
-            summary: Add a new book
-            description: Adds a new book with full details
-
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Ownership'
+    /ownerships/{id}:
+        get:
+            summary: Get ownership by ID
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+            responses:
+                '200':
+                    description: Ownership details
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Ownership'
+                '404':
+                    description: Ownership not found
+        put:
+            summary: Update an ownership
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Ownership'
+            responses:
+                '200':
+                    description: Updated ownership details
+                '404':
+                    description: Ownership not found
+        delete:
+            summary: Delete an ownership by ID
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+            responses:
+                '204':
+                    description: Ownership deleted
+                '404':
+                    description: Ownership not found
+    /ownerships:
+        post:
+            summary: Add a new ownership
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Ownership'
+            responses:
+                '201':
+                    description: Created ownership
 components:
     schemas:
-        error:
-            description: "{\r\n  \"Error\": \"error message\"\r\n}"
+        Book:
             type: object
+            properties:
+                BookId:
+                    type: integer
+                BookName:
+                    type: string
+                Genre:
+                    type: array
+                    items:
+                        type: string
+                ReleaseDate:
+                    type: string
+                Description:
+                    type: string
+                ReviewScore:
+                    type: integer
+                HowManyPages:
+                    type: integer
+        User:
+            type: object
+            properties:
+                UserId:
+                    type: integer
+                FirstName:
+                    type: string
+                LastName:
+                    type: string
+                UserName:
+                    type: string
+                Password:
+                    type: string
+                OwnerShipListID:
+                    type: integer
+        Ownership:
+            type: object
+            properties:
+                OwnerId:
+                    type: integer
+                BookId:
+                    type: integer
+                UserId:
+                    type: integer
+                Status:
+                    type: string
