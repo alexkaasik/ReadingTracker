@@ -131,6 +131,8 @@ export default {
 </template>
 
 <style scoped>
-
+button {
+    border-radius: 8px;
+}
 </style>
 
