@@ -1,0 +1,24 @@
+{
+    "name": "readingtracker",
+    "version": "1.0.0",
+    "main": "",
+    "scripts": {
+        "StartServers": "concurrently \"npm run BackEnd\" \"npm run FrontEnd\"",
+    
+        "BackEnd": "echo 'Running the BackEnd:' && cd ./BackEnd/ && node .",
+        "FrontEnd": "echo 'Running the FrontEnd:' && cd ./FrontEnd/ && npm run dev",
+
+
+        "WholeProjectInstll": "echo 'Installing everything' npm run BaseInstall && npm run BackEndInstall && npm run FrontEndInstall " ,
+
+        "BaseInstall": "echo 'Installing base dependencies' && npm install -y",
+        "BackEndInstall": "echo 'Installing BackEnd' && cd ./BackEnd/ && npm install -y",
+        "FrontEndInstall": "echo 'Installing FrontEnd' && cd ./FrontEnd/ && npm install -y"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "concurrently": "^9.1.2"
+    }
+}
