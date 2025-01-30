@@ -171,6 +171,10 @@ app.delete('/users/:id', (req, res) => {
     res.status(204).send();
 });
 
+app.get('/ownerships', (req, res) => {
+    res.send(ownerships);
+});
+
 
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
