@@ -208,6 +208,15 @@ app.put('/ownerships/:id', (req, res) => {
     res.send(ownership);
 });
 
+app.delete('/ownerships/:id', (req, res) => {
+    const index = ownerships.findIndex(o => o.OwnerId === parseInt(req.params.id));
+    if (index === -1) {
+        return res.status(404).send({ Error: 'Ownership not found' });
+    }
+    ownerships.splice(index, 1);
+    res.status(204).send();
+});
+
 
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
