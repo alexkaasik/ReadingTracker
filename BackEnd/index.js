@@ -183,6 +183,20 @@ app.get('/ownerships/:id', (req, res) => {
     res.send(ownership);
 });
 
+app.post('/ownerships', (req, res) => {
+    if (!req.body.BookId || !req.body.UserId || !req.body.Status) {
+        return res.status(400).send({ Error: 'Missing ownership parameters' });
+    }
+    const newOwnership = {
+        OwnerId: ownerships.length + 1,
+        BookId: req.body.BookId,
+        UserId: req.body.UserId,
+        Status: req.body.Status,
+    };
+    ownerships.push(newOwnership);
+    res.status(201).send(newOwnership);
+});
+
 
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
