@@ -15,6 +15,70 @@ a,
   padding: 3px;
 }
 
+
+a.button {
+  border-radius: 8px;
+  padding: 12px;
+  margin: 5px;
+  color: rgb(255, 255, 255);
+}
+button.button {
+  border-radius: 8px;
+  padding: 10px;
+  margin: 5px;
+  color: rgb(255, 255, 255);
+}
+
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  margin: 4px 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  margin: 5px 0;
+}
+
+.button.danger {
+  background-color: rgb(255, 0, 0);
+  
+}
+.button.danger:hover {
+  background-color: rgb(192, 0, 0);
+}
+
+.button.success {
+  background-color: rgb(0, 192, 0);
+  
+}
+
+.button.success:hover {
+  background-color: rgb(0, 128, 0);
+}
+
+.button.info {
+  background-color: rgb(0, 0, 192);  
+}
+
+.button.info:hover {
+  background-color: rgb(0, 0, 96);
+}
+
+.button.primary {
+  background-color: rgb(128,128,128);  
+}
+
+.button.primary:hover {
+  background-color: rgb(105,105,105);
+}
+
 @media (hover: hover) {
   a:hover {
     background-color: hsla(160, 100%, 37%, 0.2);

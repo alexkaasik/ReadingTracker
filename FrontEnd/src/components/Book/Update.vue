@@ -147,9 +147,9 @@ export default {
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align: center;">
-                        <button type="submit">Submit</button>
-                        <button type="button" @click="ClearForm">Reset</button>
-                        <a href="/book">Back</a>
+                        <button type="submit" class="button success" >Submit</button>
+                        <button type="button" @click="ClearForm" class="button primary" >Reset</button>
+                        <a href="/book" class="button primary" >Back</a>
                     </td>
                 </tr>
             </table>

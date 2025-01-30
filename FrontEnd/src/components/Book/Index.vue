@@ -22,12 +22,13 @@ export default {
                     <td>{{ item.BookName }}</td>
                     <td>{{ item.HowManyPages }} pages</td>                    
                     <td>
-                        <a :href="'/book/detail/' + item.BookId">Detail</a>
-                        <a :href="'/book/update/' + item.BookId">Update</a>
-                        <a :href="'/book/delete/' + item.BookId">Delete</a>
+                        <a :href="'/book/detail/' + item.BookId" class="button info" >Detail</a>
+                        <a :href="'/book/update/' + item.BookId" class="button success" >Update</a>
+                        <a :href="'/book/delete/' + item.BookId" class="button danger">Delete</a>
                     </td>
                 </tr>
-                <a :href="'/book/create'">Create</a>
+                <br>
+                <a :href="'/book/create'" class="button primary" >Create</a>
             </tbody>
         </table>
     </body>
