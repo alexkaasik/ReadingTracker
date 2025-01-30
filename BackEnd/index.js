@@ -175,6 +175,14 @@ app.get('/ownerships', (req, res) => {
     res.send(ownerships);
 });
 
+app.get('/ownerships/:id', (req, res) => {
+    const ownership = ownerships.find(o => o.OwnerId === parseInt(req.params.id));
+    if (!ownership) {
+        return res.status(404).send({ Error: 'Ownership not found' });
+    }
+    res.send(ownership);
+});
+
 
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
