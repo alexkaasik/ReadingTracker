@@ -39,7 +39,14 @@ export default {
       <input v-model="ownership.UserId" type="number" required />
 
       <label>Status:</label>
-      <input v-model="ownership.Status" type="text" required />
+      <br>
+      <select v-model="ownership.Status" required>
+        <option value="">--Please choose an option--</option>
+        <option value="Borrowed">Borrowed</option>
+        <option value="Owned">Owned</option>
+      </select>
+      
+      <br>
 
       <button type="submit">Create</button>
     </form>

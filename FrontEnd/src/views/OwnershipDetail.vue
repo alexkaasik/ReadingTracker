@@ -1,18 +1,18 @@
 <template>
   <div>
-    <h1>Create Ownership</h1>
-    <form @submit.prevent="createOwnership">
-      <label>BookId:</label>
-      <input v-model="ownership.BookId" required />
-
-      <label>UserId:</label>
-      <input v-model="ownership.UserId" required />
-
-      <label>Status:</label>
-      <input v-model="ownership.Status" required />
-
-      <button type="submit">Create</button>
-    </form>
+    <h1>Detail Ownership</h1>
+    <table class="table table-striped table-bordered">
+      <tr>
+        <td>Book:</td>
+        <td>{{ownership.BookId}}</td>
+      </tr>
+        <td>User:</td>
+        <td>{{ownership.UserId}}</td>
+      <tr>
+        <td>Status:</td>
+        <td>{{ownership.Status}}</td>
+      </tr>
+    </table>
     <router-link to="/ownerships">Back to List</router-link>
   </div>
 </template>
@@ -30,16 +30,22 @@ export default {
       }
     };
   },
+  created()
+    {
+      this.fetchOwnership();
+    },
   methods: {
-    createOwnership() {
-      axios.post("http://localhost:8080/ownerships", this.ownership)
-        .then(() => {
-          this.$router.push("/ownerships");
+    fetchOwnership()
+    {
+      const ownerId = this.$route.params.id;
+      axios.get(`http://localhost:8080/ownerships/${ownerId}`)
+        .then(response => {
+          this.ownership = response.data;
         })
         .catch(error => {
-          console.error("Error creating ownership:", error);
+          console.error("Error fetching ownership details:", error);
         });
-    }
+    },
   }
 };
 </script>
