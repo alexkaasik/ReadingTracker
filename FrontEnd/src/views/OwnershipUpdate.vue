@@ -7,12 +7,19 @@
 
       <label>UserId:</label>
       <input v-model="ownership.UserId" required />
-
+      
       <label>Status:</label>
-      <input v-model="ownership.Status" required />
-
+      <br>
+      <select v-model="ownership.Status" required>
+        <option value="">--Please choose an option--</option>
+        <option value="Borrowed">Borrowed</option>
+        <option value="Owned">Owned</option>
+      </select>
+        <br>
+        <br>
       <button type="submit">Update</button>
     </form>
+    <br>
     <router-link to="/ownerships">Back to List</router-link>
   </div>
 </template>

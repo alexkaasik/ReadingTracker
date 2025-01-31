@@ -7,7 +7,6 @@ export default {
         LastName: "",
         UserName: "",
         Password: "",
-        OwnerShipListID: "",
       },
       errorMessage: "",
     };
@@ -56,11 +55,10 @@ export default {
       <label>Password:</label>
       <input v-model="newUser.Password" type="password" required />
 
-      <label>Ownership ID:</label>
-      <input v-model="newUser.OwnerShipListID" type="number" required />
-
       <button type="submit">Create</button>
     </form>
+    <br>  
+    <a href="/users" class="button primary">Back</a>
   </div>
 </template>
 

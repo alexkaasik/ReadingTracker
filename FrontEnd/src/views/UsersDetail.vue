@@ -26,7 +26,10 @@ export default {
       <tr><td>Last Name:</td><td>{{ user.LastName }}</td></tr>
       <tr><td>Username:</td><td>{{ user.UserName }}</td></tr>
     </table>
+    <br>  
+    <a href="/users" class="button primary">Back</a>
   </div>
+
 </template>
 
 <style scoped>

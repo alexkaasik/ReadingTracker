@@ -7,7 +7,6 @@
           <th>First Name</th>
           <th>Last Name</th>
           <th>Username</th>
-          <th>Ownership ID</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -17,7 +16,6 @@
           <td>{{ user.FirstName }}</td>
           <td>{{ user.LastName }}</td>
           <td>{{ user.UserName }}</td>
-          <td>{{ user.OwnerShipListID }}</td>
           <td>
             <router-link :to="'/users/' + user.UserId">Detail</router-link> |
             <router-link :to="'/users/update/' + user.UserId">Update</router-link> |

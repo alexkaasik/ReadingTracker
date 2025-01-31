@@ -26,10 +26,6 @@ export default {
         <td>Username</td>
         <td>{{ user.UserName }}</td>
       </tr>
-      <tr>
-        <td>Ownership ID</td>
-        <td>{{ user.OwnerShipListID }}</td>
-      </tr>
     </tbody>
   </table>
 </template>
