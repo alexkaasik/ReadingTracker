@@ -13,10 +13,29 @@ cd ReadingTracker
 npm run WholeProjectInstll
 ```
 
-- Start the backend and the frontend in the same time
+- To start the backend and the frontend at the same time
 ```sh
 npm run StartServers
 ```
+
+- If you want run the BackEnd and FrontEnd separately 
+- To install need dependencies for the FrontEnd
+```sh
+npm run FrontEndInstall
+```
+- To run the FrontEnd
+```sh
+npm run FrontEnd
+```
+- To install need dependencies for the BackEnd
+```sh
+npm run BackEndInstall
+```
+- To run the BackEnd
+```sh
+npm run BackEnd
+```
+
 
 ## Authors
 
@@ -26,8 +45,8 @@ npm run StartServers
 
 ------------------------------------------------------
 ## Project team resources:
-- JIRA https://jvtthkjira.atlassian.net/jira/software/projects/KAN/boards/1?selectedIssue=KAN-1
-- Apicurio https://studio.apicur.io/apis/112945
+- [JIRA](https://notryan754.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog?atlOrigin=eyJpIjoiZjg4NTM0ZTlhZjFjNGJhNTg2OTU1MDBjZmI4ZDNiNTAiLCJwIjoiaiJ9)
+- [Apicurio](https://studio.apicur.io/apis/112945)
 ------------------------------------------------------
 
 ## API Reference
