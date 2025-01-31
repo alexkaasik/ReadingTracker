@@ -238,6 +238,33 @@ app.delete('/users/:id', (req, res) => {
 
 // ---- Ownerships Start ----
 
+app.get('/booknames', (req, res) => {
+    
+    book = []
+    for (let x in books){
+        var star = '{\"Bookid\":'+ books[x].BookId + ', \"BookName\":' + '\"' + books[x].BookName+'\"}'
+        console.log(star)
+        book.push(JSON.parse(star))
+    }
+    return res.send(book);
+});
+
+app.get('/usernames', (req, res) => {
+    
+    user = []
+
+    for (let x in users){
+        var star = '{\"UserId\":'+ users[x].UserId + ', \"UserName\":' + '\"' + users[x].UserName+'\"}'
+        console.log(star)
+        user.push(JSON.parse(star))
+    }
+
+    return res.send(user);
+});
+
+
+
+
 app.get('/ownerships', (req, res) => {
     return res.send(ownerships);
 });
@@ -275,7 +302,7 @@ app.put('/ownerships/:id', (req, res) => {
     res.send(ownership);
 });
 
-app.delete('/ownerships/:id', (req, res) => {
+app.delete('ownerships/:id', (req, res) => {
     const index = ownerships.findIndex(o => o.OwnerId === parseInt(req.params.id));
     if (index === -1) {
         return res.status(404).send({ Error: 'Ownership not found' });
@@ -285,7 +312,6 @@ app.delete('/ownerships/:id', (req, res) => {
 });
 
 // ---- Ownerships End ----
-
 
 function getBook(req,res) 
 {

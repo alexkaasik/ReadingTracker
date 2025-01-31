@@ -27,12 +27,17 @@ export default {
         BookId: "",
         UserId: "",
         Status: ""
-      }
+      },
+      users: {},
+      books: {}
+
     };
   },
-  created()
+  async created()
     {
       this.fetchOwnership();
+      this.books = await (await fetch("http://localhost:8080/booknames")).json();
+      this.users = await (await fetch("http://localhost:8080/usernames")).json();
     },
   methods: {
     fetchOwnership()

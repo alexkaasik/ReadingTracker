@@ -40,6 +40,9 @@ export default {
   },
   created() {
     this.fetchOwnerships();
+    this.fetchBooks();
+    this.fetchUsers();
+
   },
   methods: {
     fetchOwnerships() {
@@ -49,6 +52,24 @@ export default {
         })
         .catch(error => {
           console.error("Error fetching ownerships:", error);
+        });
+    },
+    fetchBooks() {
+      axios.get("http://localhost:8080/booknames")
+        .then(response => {
+          this.books = response.data;
+        })
+        .catch(error => {
+          console.error("Error fetching books:", error);
+        });
+    },
+    fetchUsers() {
+      axios.get("http://localhost:8080/usernames")
+        .then(response => {
+          this.user = response.data;
+        })
+        .catch(error => {
+          console.error("Error fetching user:", error);
         });
     },
     deleteOwnership(ownerId) {

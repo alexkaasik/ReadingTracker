@@ -1,7 +1,10 @@
 <script>
 export default {
   data() {
-    return { ownership: { BookId: "", UserId: "", Status: "" }, errorMessage: "" };
+    return { ownership: { BookId: "", UserId: "", Status: "" }, errorMessage: "" , books: {}, users: {} };
+  },
+  created(){
+    
   },
   methods: {
     async createOwnership() {
@@ -23,20 +26,35 @@ export default {
         this.errorMessage = "Error: " + error.message;
       }
     },
+    async fetchBooks() {
+             
+      this.books = await (await fetch("http://localhost:8080/booknames")).json();
+    },
+    async fetchUsers() {
+      this.users = await (await fetch("http://localhost:8080/usernames")).json();
+    },
   },
 };
 </script>
 
-<template>
+<template>  
   <div>
     <h2>Create Ownership</h2>
-    <form @submit.prevent="createOwnership">
+    <form >
       <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
       <label>Book ID:</label>
-      <input v-model="ownership.BookId" type="number" required />
+      <br>
+      <select v-model="ownership.BookId" required>
+        <option value="">--Please choose an option--</option>
+        <option v-for="book in books" :value=book.BookId>{{ book.BookName }}</option>
+      </select>
 
       <label>User ID:</label>
-      <input v-model="ownership.UserId" type="number" required />
+      <br>
+      <select v-model="ownership.UserId" required>
+        <option value="">--Please choose an option--</option>
+        <option v-for="user in users" :value=user.UserId>{{ user.UserName }}</option>
+      </select>
 
       <label>Status:</label>
       <br>
