@@ -13,7 +13,7 @@ cd ReadingTracker
 npm run WholeProjectInstll
 ```
 
-- Running the backend and the frontend
+- Start the backend and the frontend in the same time
 ```sh
 npm run StartServers
 ```
