@@ -3,7 +3,6 @@ const port = 8080;
 const cors = require("cors")
 const swaggerUI = require('swagger-ui-express');
 const yamljs = require('yamljs');
-/* const swaggerDocument = require('./docs/swagger.json'); */
 const swaggerDocument = yamljs.load('./docs/swagger.yaml');
 var express = require('express')
 
@@ -11,7 +10,7 @@ let books =
 [
     {
         BookId: 1, 
-        BookName: "Metro 2033",
+        BookName: "Metro 2033s",
         Gerne: ["Science Fiction", "Fiction", "Horror", "Post Apocalyptic", "Dystopia", "Fantasy", "Russia", "Audiobook", "Apocalyptic", "Russian Literature"],
         ReleaseDate : "2002", 
         Description: "The year is 2033. The world has been reduced to rubble. Humanity is nearly extinct. The half-destroyed cities have become uninhabitable through radiation.", 
@@ -36,7 +35,7 @@ let books =
         ReviewScore: 3.58,
         HowManyPages: 103
     }
-]
+];
 
 let users = [
     {
@@ -45,62 +44,54 @@ let users = [
         LastName: "Kaasik",
         UserName: "alka",
         Password: "PlainText",
+        OwnerShipListID: 1
     },
     {
         UserId: 2,
         FirstName: "Mihhail",
         LastName: "Bajandin",
-        UserName: "alka",
+        UserName: "mihhail",
         Password: "PlainText",
-    }
-]
+        OwnerShipListID: 2
+    },
+];
+
+const ownerships = [
+    {
+        OwnerId: 1,
+        BookId: 1,
+        UserId: 1,
+        Status: "Owned",
+    },
+    {
+        OwnerId: 2,
+        BookId: 2,
+        UserId: 2,
+        Status: "Borrowed",
+    },
+];
 
 app.use(express.json());
 app.use(cors());
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // ---- Books start ----
 
 app.get('/books', (req, res) => {
-    res.send(books);
-})
+    return res.send(books);
+});
 
 app.get('/books/:id', (req, res) => {
     if(isNaN(parseInt(req.params.id-1, 10)) ) {
         return res.status(400).send({Error: 'bad id'});
     }
-    if(typeof books[req.params.id]-1 === 'undefined') {
-        return res.status(404).send({Error: 'Books not found'});
-    }
-    res.send(books[req.params.id-1]);
-})
 
-
-app.put('/Books/:id', (req, res) => {
     const book = getBook(req, res);
-    if(!book) {return}
-    if (
-        !req.body.BookName ||
-        !req.body.Gerne ||
-        !req.body.ReleaseDate || 
-        !req.body.Description || 
-        !req.body.ReviewScore || 
-        !req.body.HowManyPages)  
-        {
-            return res.status(400).send({error: 'Missing game parameters'});
-        }
-        
-        book.BookName = req.body.BookName;
-        book.Gerne = req.body.Gerne;
-        book.ReleaseDate = req.body.ReleaseDate;
-        book.Description = req.body.Description;
-        book.ReviewScore = req.body.ReviewScore;
-        book.HowManyPages = req.body.HowManyPages;
-    return res
-    .status(201)
-    .location(`${getBaseUrl(req)}/books/${book.id}`)
-    .send(book);
-})
 
+    if (!book) { return }
+
+    return res.send(book);
+});
 
 app.post('/books', (req, res) => {
     if (
@@ -109,24 +100,49 @@ app.post('/books', (req, res) => {
         !req.body.ReleaseDate || 
         !req.body.Description || 
         !req.body.ReviewScore || 
-        !req.body.HowManyPages) 
-        {
-            return res.status(400).send({error: 'One or multiple parameters are missing'});
-        }
-    let book = {
-        BookId: books.length+1, 
+        !req.body.HowManyPages
+    ) 
+    {
+        return res.status(400).send({error: 'One or multiple parameters are missing to create new book'});
+    }
+    let newBook = {
+        BookId: books.length + 1,
         BookName: req.body.BookName,
         Gerne: req.body.Gerne,
-        ReleaseDate : req.body.ReleaseDate, 
-        Description: req.body.Description, 
+        ReleaseDate: req.body.ReleaseDate,
+        Description: req.body.Description,
         ReviewScore: req.body.ReviewScore,
-        HowManyPages: req.body.HowManyPages
+        HowManyPages: req.body.HowManyPages,
+    };
+
+    books.push(newBook);
+    return res.status(201).send(newBook);
+});
+
+app.put('/books/:id', (req, res) => {
+    const book = getBook(req, res);
+    if(!book) {return}
+
+    if (
+        !req.body.BookName ||
+        !req.body.Gerne ||
+        !req.body.ReleaseDate || 
+        !req.body.Description || 
+        !req.body.ReviewScore || 
+        !req.body.HowManyPages
+    )  
+    {
+        return res.status(400).send({error: 'One or multiple parameters are missing to update book'});
     }
-    books.push(book);
-    res.status(201)
-    .location(`${getBaseUrl(req)}/books/${books.length}`)
-    .send(book);
-})
+    book.BookName = req.body.BookName;
+    book.Genre = req.body.Genre;
+    book.ReleaseDate = req.body.ReleaseDate;
+    book.Description = req.body.Description;
+    book.ReviewScore = req.body.ReviewScore;
+    book.HowManyPages = req.body.HowManyPages;
+    
+    return res.status(201).send(book);
+});
 
 app.delete('/books/:id', (req, res) => {
 
@@ -140,7 +156,7 @@ app.delete('/books/:id', (req, res) => {
 
     books = books.filter(val => val.BookId !== book.BookId)
     
-    res.status(204).send({Error: 'No Content'});
+    return res.status(204).send({Error: 'No Content'});
 })
 
 // ---- Books end ----
@@ -148,89 +164,128 @@ app.delete('/books/:id', (req, res) => {
 // ---- User Start ----
 
 app.get('/users', (req, res) => {
-    res.send(users);
-})
+    return res.send(users);
+});
 
 app.get('/users/:id', (req, res) => {
-    if(isNaN(parseInt(req.params.id-1, 10)) ) {
+    if(isNaN(parseInt(req.params.id, 10)) ) {
         return res.status(400).send({Error: 'bad id'});
     }
-    if(typeof books[req.params.id-1] === 'undefined') {
-        return res.status(404).send({Error: 'no user was found'});
-    }
-    res.send(books[req.params.id-1]);
-})
 
+    const user = getUser(req, res);
+    
+    if (!user) { return }
+
+    return res.send(user);
+});
 
 app.post('/users', (req, res) => {
     if (
         !req.body.FirstName ||
         !req.body.LastName ||
         !req.body.LastName || 
-        !req.body.Password)
-        {
-            return res.status(400).send({error: 'One or multiple parameters are missing'});
-        }
-    let user = {
-        UserId: users.length+1, 
+        !req.body.Password
+    )
+    {
+        return res.status(400).send({error: 'One or multiple parameters are missing to create a new user'});
+    }
+    const newUser = {
+        UserId: users.length + 1,
         FirstName: req.body.FirstName,
         LastName: req.body.LastName,
-        UserName : req.body.UserName, 
-        Password: req.body.Password
-    }
-    users.push(user);
-    res.status(201)
-    .location(`${getBaseUrl(req)}/users/${users.length}`)
-    .send(user);
-})
+        UserName: req.body.UserName,
+        Password: req.body.Password,
+        OwnerShipListID: req.body.OwnerShipListID || null
+    };
+    users.push(newUser);
+    res.status(201).send(newUser);
+});
+
+app.put('/users/:id', (req, res) => {
+    const user = getUser(req, res);
+    if(!user) {return}
+
+    if (
+        !req.body.FirstName ||
+        !req.body.LastName ||
+        !req.body.LastName || 
+        !req.body.Password
+    ) 
+    {
+        return res.status(400).send({error: 'One or multiple parameters are missing to update a user'});
+    } 
+
+    user.FirstName = req.body.FirstName;
+    user.LastName = req.body.LastName;
+    user.UserName = req.body.UserName;
+    user.Password = req.body.Password;
+
+    return res.status(201).send(user);
+});
 
 app.delete('/users/:id', (req, res) => {
     const user = getUser(req, res);
     if(isNaN(parseInt(req.params.id, 10)) ) {
         return res.status(400).send({Error: 'bad id'});
     }
-    if(typeof users[req.params.id-1] === 'undefined') 
-    {
-        return res.status(404).send({Error: 'Book not found'});
-    }
-
-    users.splice(req.params.id-1, 1);
 
     users = users.filter(val => val.UserId !== user.UserId)
 
-    res.status(204).send({Error: 'No Content'});
-})
+    return res.status(204).send({Error: 'No Content'});
+});
 
-app.put('/Users/:id', (req, res) => {
-    const user = getUser(req, res);
-    if(!user) {return}
-    if (
-        !req.body.FirstName ||
-        !req.body.LastName ||
-        !req.body.LastName || 
-        !req.body.Password) 
-        {
-            return res.status(400).send({error: 'Missing game parameters'});
-        }  
-        user.FirstName = req.body.FirstName,
-        user.LastName = req.body.LastName,
-        user.UserName = req.body.UserName, 
-        user.Password = req.body.Password
-    return res
-    .status(201)
-    .location(`${getBaseUrl(req)}/users/${user.id}`)
-    .send(user);
-})
+// ---- Users End ----
 
-// ---- User end ----   
+// ---- Ownerships Start ----
 
-app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+app.get('/ownerships', (req, res) => {
+    return res.send(ownerships);
+});
 
-app.listen(port, () => {console.log(`Backend api jookseb aadressil: http://localhost:${port}`);});
+app.get('/ownerships/:id', (req, res) => {
+    const ownership = ownerships.find(o => o.OwnerId === parseInt(req.params.id));
+    if (!ownership) {
+        return res.status(404).send({ Error: 'Ownership not found' });
+    }
+    res.send(ownership);
+});
 
-function getBaseUrl(req) {
-    return req.connection && req.connection.encrypted ? "https" : "http" + `://${req.headers.host}`;
-}
+app.post('/ownerships', (req, res) => {
+    if (!req.body.BookId || !req.body.UserId || !req.body.Status) {
+        return res.status(400).send({ Error: 'Missing ownership parameters' });
+    }
+    const newOwnership = {
+        OwnerId: ownerships.length + 1,
+        BookId: req.body.BookId,
+        UserId: req.body.UserId,
+        Status: req.body.Status,
+    };
+    ownerships.push(newOwnership);
+    res.status(201).send(newOwnership);
+});
+
+app.put('/ownerships/:id', (req, res) => {
+    const ownership = ownerships.find(o => o.OwnerId === parseInt(req.params.id));
+    if (!ownership) {
+        return res.status(404).send({ Error: 'Ownership not found' });
+    }
+    ownership.BookId = req.body.BookId;
+    ownership.UserId = req.body.UserId;
+    ownership.Status = req.body.Status;
+    res.send(ownership);
+});
+
+app.delete('/ownerships/:id', (req, res) => {
+    const index = ownerships.findIndex(o => o.OwnerId === parseInt(req.params.id));
+    if (index === -1) {
+        return res.status(404).send({ Error: 'Ownership not found' });
+    }
+    ownerships.splice(index, 1);
+    res.status(204).send();
+});
+
+// ---- Ownerships End ----
+
 
 function getBook(req,res) 
 {
@@ -263,3 +318,11 @@ function getUser(req,res)
     }
     return user;
 }
+
+function getBaseUrl(req) {
+    return req.connection && req.connection.encrypted ? "https" : "http" + `://${req.headers.host}`;
+}
+
+app.listen(port, () => {
+    console.log(`Backend API running at http://localhost:${port}`);
+});

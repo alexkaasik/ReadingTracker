@@ -50,8 +50,9 @@ export default {
                 <td>{{ item.HowManyPages }} pages</td>
             </tr>
             <tr>
-                <a href="/book">Back</a>
-                <a :href="'/book/delete/confirmation/' + item.BookId">Delete</a>
+                <br>
+                <a href="/book" class="button primary">Back</a>
+                <a :href="'/book/delete/confirmation/' + item.BookId" class="button danger">Delete</a>
             </tr>
         </table>  
     </body>

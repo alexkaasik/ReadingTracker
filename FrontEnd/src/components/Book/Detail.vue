@@ -50,7 +50,8 @@ export default {
                 <td>{{ item.HowManyPages }} pages</td>
             </tr>
             <tr>
-                <a href="/book">Back</a>
+                <br>    
+                <a href="/book" class="button primary">Back</a>
             </tr>
         </table>  
     </body>

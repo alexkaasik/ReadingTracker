@@ -1,5 +1,5 @@
-How to run
-- We running node v20 on this project
+## How to run the service
+- We running node v20 on this project.
 
 - open any kind of terminal then pick a location where to storage site.
 ```sh
@@ -7,24 +7,50 @@ git clone https://github.com/alexkaasik/ReadingTracker.git
 cd ReadingTracker
 
 ```
-- Now you in the project diretory.
-
-- There going be Instructions how to install and start the back-end. 
+- To run BackEnd/FrontEnd, we need to install some packages to the project. Here npm script to it quickly, if you want to launch the project.
+- In command to install all dependencies that need to the project
 ```sh
-Cd BackEnd
+npm run WholeProjectInstll
 ```
 
-- in another terminal you can open to the front end
-
-- There going be Instructions how to install and start the front-end.
+- Running the backend and the frontend
 ```sh
-Cd FrontEnd
+npm run StartServers
 ```
+
+## Authors
+
+- Aleksander Kaasik  [@alexkaasik](https://www.github.com/alexkaasik)
+
+- Mihhail Bajandin  [@mihutka](https://github.com/mihutka)
 
 ------------------------------------------------------
-project team resources:
+## Project team resources:
 - JIRA https://jvtthkjira.atlassian.net/jira/software/projects/KAN/boards/1?selectedIssue=KAN-1
 - Apicurio https://studio.apicur.io/apis/112945
 ------------------------------------------------------
-ERD:
+
+## API Reference
+
+#### Get all items
+
+```http
+  GET /books
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `clients` | `string` | Get a list of all books |
+
+#### Getting item
+
+```http
+  GET /books/{id}
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `string` | **Required**. Id of item to book |
+
+## Database
 ![image](https://raw.githubusercontent.com/alexkaasik/ReadingTracker/refs/heads/AleksanderKaasik/image.png)
