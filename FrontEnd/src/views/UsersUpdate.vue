@@ -69,6 +69,8 @@ export default {
 
       <button type="submit">Update</button>
     </form>
+    <br>  
+    <a href="/users" class="button primary">Back</a>
   </div>
 </template>
 
